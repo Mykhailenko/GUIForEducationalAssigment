@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="UML Contradiction" basedir=".">
+	<property name="src.dir" value="src"/>
+	<property name="build.dir" value="build"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="main-class" value="educational_assingment.gui.GUIEducAssignment"/>
+	<property name="jar.name" value="julia.jar"/>
+	<path id="clsspth">
+	        <fileset dir="${lib.dir}" includes="*.jar"/>
+	</path>
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+	
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="clsspth"/>
+		<copy todir="${build.dir}">
+			<fileset file="build.properties"/>
+		</copy>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<jar destfile="${jar.name}">
+			<fileset dir="build" />
+			<fileset dir="." includes="images/**"/>
+			<zipfileset src="lib/jxl-2.6.jar"/>
+			<zipfileset src="lib/mysql-connector-java-5.1.20-bin.jar"/>
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}"/>
+			</manifest>
+		</jar>
+	</target>
+</project>
